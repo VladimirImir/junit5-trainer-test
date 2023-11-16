@@ -1,6 +1,6 @@
 package com.dev.exception;
 
-import com.dmdev.validator.Error;
+import com.dev.validator.Error;
 import lombok.Getter;
 
 import java.util.List;

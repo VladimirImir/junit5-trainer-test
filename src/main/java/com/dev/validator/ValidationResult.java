@@ -8,13 +8,13 @@ import java.util.List;
 public class ValidationResult {
 
     @Getter
-    private final List<java.lang.Error> errors = new ArrayList<>();
+    private final List<Error> errors = new ArrayList<>();
 
-    public void add(java.lang.Error error) {
+    public void add(Error error) {
         this.errors.add(error);
     }
 
-    public boolean isValid() {
-        return errors.isEmpty();
+    public boolean hasErrors() {
+        return !errors.isEmpty();
     }
 }

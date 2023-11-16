@@ -1,10 +1,10 @@
 package com.dev.mapper;
 
-import com.dmdev.dto.CreateUserDto;
-import com.dmdev.entity.Gender;
-import com.dmdev.entity.Role;
-import com.dmdev.entity.User;
-import com.dmdev.util.LocalDateFormatter;
+import com.dev.dto.CreateUserDto;
+import com.dev.entity.Gender;
+import com.dev.entity.Role;
+import com.dev.entity.User;
+import com.dev.util.LocalDateFormatter;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -25,8 +25,8 @@ public class CreateUserMapper implements Mapper<CreateUserDto, User> {
                 .birthday(LocalDateFormatter.format(object.getBirthday()))
                 .email(object.getEmail())
                 .password(object.getPassword())
-                .gender(Gender.find(object.getGender()).orElse(null))
-                .role(Role.find(object.getRole()).orElse(null))
+                .gender(Gender.findOpt(object.getGender()).orElse(null))
+                .role(Role.findOpt(object.getRole()).orElse(null))
                 .build();
     }
 }

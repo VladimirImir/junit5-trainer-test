@@ -1,9 +1,9 @@
 package com.dev.validator;
 
-import com.dmdev.dto.CreateUserDto;
-import com.dmdev.entity.Gender;
-import com.dmdev.entity.Role;
-import com.dmdev.util.LocalDateFormatter;
+import com.dev.dto.CreateUserDto;
+import com.dev.entity.Gender;
+import com.dev.entity.Role;
+import com.dev.util.LocalDateFormatter;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -21,13 +21,13 @@ public class CreateUserValidator implements Validator<CreateUserDto> {
     public ValidationResult validate(CreateUserDto object) {
         var validationResult = new ValidationResult();
         if (!LocalDateFormatter.isValid(object.getBirthday())) {
-            validationResult.add(java.lang.Error.of("invalid.birthday", "Birthday is invalid"));
+            validationResult.add(Error.of("invalid.birthday", "Birthday is invalid"));
         }
-        if (Gender.find(object.getGender()).isEmpty()) {
-            validationResult.add(java.lang.Error.of("invalid.gender", "Gender is invalid"));
+        if (Gender.findOpt(object.getGender()).isEmpty()) {
+            validationResult.add(Error.of("invalid.gender", "Gender is invalid"));
         }
-        if (Role.find(object.getRole()).isEmpty()) {
-            validationResult.add(java.lang.Error.of("invalid.role", "Role is invalid"));
+        if (Role.findOpt(object.getRole()).isEmpty()) {
+            validationResult.add(Error.of("invalid.role", "Role is invalid"));
         }
         return validationResult;
     }

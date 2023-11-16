@@ -1,7 +1,7 @@
 package com.dev.mapper;
 
-import com.dmdev.dto.UserDto;
-import com.dmdev.entity.User;
+import com.dev.dto.UserDto;
+import com.dev.entity.User;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
