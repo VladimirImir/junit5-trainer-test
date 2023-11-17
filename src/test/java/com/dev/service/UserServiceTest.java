@@ -65,6 +65,43 @@ class UserServiceTest {
         verifyNoInteractions(userMapper);
     }
 
+    @Test
+    void create() {
+        CreateUserDto createUserDto = getCreateUserDto();
+        User user = getUser();
+        UserDto userDto = getUserDto();
+        doReturn(new ValidationResult()).when(createUserValidator).validate(createUserDto);
+        doReturn(user).when(createUserMapper).map(createUserDto);
+        doReturn(userDto).when(userMapper).map(user);
+
+        UserDto actualResult = userService.create(createUserDto);
+
+        assertThat(actualResult).isEqualTo(userDto);
+        verify(userDao).save(user);
+    }
+
+    @Test
+    void shouldThrowExceptionIfDtoInvalid() {
+        CreateUserDto createUserDto = getCreateUserDto();
+        ValidationResult validationResult = new ValidationResult();
+        validationResult.add(Error.of("invalid.role", "message"));
+        doReturn(validationResult).when(createUserValidator).validate(createUserDto);
+
+        assertThrows(ValidationException.class, () -> userService.create(createUserDto));
+        verifyNoInteractions(userDao, createUserMapper, userMapper);
+    }
+
+    private CreateUserDto getCreateUserDto() {
+        return CreateUserDto.builder()
+                .name("Ivan")
+                .email("test@gmail.com")
+                .password("123")
+                .birthday("2000-01-01")
+                .role(Role.USER.name())
+                .gender(Gender.MALE.name())
+                .build();
+    }
+
 
     private UserDto getUserDto() {
         return UserDto.builder()
